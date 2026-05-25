@@ -177,7 +177,7 @@ textarea{resize:vertical;min-height:72px}
           <div class="section-title"><i class="ti ti-list"></i> รายการคิวทั้งหมด</div>
           <div style="display:flex;gap:8px;align-items:center">
             <select id="filter-status" onchange="loadQueue()" style="font-size:13px;padding:6px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:var(--font)">
-              <option value="">ทุกสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option>
+              <option value="">ทุกสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังถ่ายบัตรอยู่">กำลังถ่ายบัตรอยู่</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option>
             </select>
             <button class="btn btn-secondary btn-sm" onclick="loadQueue()"><i class="ti ti-refresh"></i> รีเฟรช</button>
           </div>
@@ -285,11 +285,11 @@ async function loadQueue(){
 function renderQueue(rows){
   const container=document.getElementById('queue-container');
   if(!rows.length){container.innerHTML='<div class="empty"><i class="ti ti-inbox"></i>ไม่มีข้อมูลคิว</div>';return;}
-  const sm={'รอถ่ายบัตร':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
+  const sm={'รอถ่ายบัตร':'waiting','กำลังถ่ายบัตรอยู่':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
   let html='<div style="overflow-x:auto"><table class="queue-table"><thead><tr><th>รหัส</th><th>ชื่อ</th><th>บริการ</th><th>วันที่นัด</th><th>เวลา</th><th>เจ้าหน้าที่</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody>';
   rows.forEach(r=>{
     const st=r['สถานะ']||'รอถ่ายบัตร';const id=r['ID']||'';
-    html+=`<tr><td><span class="badge">${id}</span></td><td><strong>${r['ชื่อ-นามสกุล']||''}</strong><br><small style="color:var(--gray-500)">${r['เบอร์โทร']||''}</small></td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td>${r['เวลา']||''}</td><td>${r['เจ้าหน้าที่']||'—'}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td><td><select onchange="changeStatus('${id}',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--gray-200);border-radius:4px;font-family:var(--font)"><option value="">เปลี่ยนสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option></select></td></tr>`;
+    html+=`<tr><td><span class="badge">${id}</span></td><td><strong>${r['ชื่อ-นามสกุล']||''}</strong><br><small style="color:var(--gray-500)">${r['เบอร์โทร']||''}</small></td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td>${r['เวลา']||''}</td><td>${r['เจ้าหน้าที่']||'—'}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td><td><select onchange="changeStatus('${id}',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--gray-200);border-radius:4px;font-family:var(--font)"><option value="">เปลี่ยนสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังถ่ายบัตรอยู่">กำลังถ่ายบัตรอยู่</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option></select></td></tr>`;
   });
   container.innerHTML=html+'</tbody></table></div>';
 }
@@ -316,7 +316,7 @@ function renderDashboard(d){
   const rq=document.getElementById('recent-queue');
   const recent=d.recentQueues||[];
   if(!recent.length){rq.innerHTML='<div class="empty"><i class="ti ti-inbox"></i>ไม่มีข้อมูล</div>';return;}
-  const sm={'รอถ่ายบัตร':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
+  const sm={'รอถ่ายบัตร':'waiting','กำลังถ่ายบัตรอยู่':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
   rq.innerHTML='<table class="queue-table"><thead><tr><th>รหัส</th><th>ชื่อ</th><th>บริการ</th><th>วันที่นัด</th><th>สถานะ</th></tr></thead><tbody>'+
     recent.map(r=>{const st=r['สถานะ']||'รอถ่ายบัตร';return`<tr><td><span class="badge">${r['ID']||''}</span></td><td>${r['ชื่อ-นามสกุล']||''}</td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td></tr>`;}).join('')+'</tbody></table>';
 }
