@@ -118,9 +118,9 @@ textarea{resize:vertical;min-height:72px}
       <div class="card">
         <div class="card-title"><i class="ti ti-user-plus"></i> ระบบลงบัญชีถ่ายบัตร </div>
         <div class="form-grid">
-          <div class="form-group"><label>ชื่อ-นามสกุล <span class="req">*</span></label><input type="text" id="f-name" placeholder="กรอกชื่อ-นามสกุล"></div>
+          <div class="form-group"><label>ชื่อ-นามสกุล <span class="req">*</span></label><input type="text" id="f-name" placeholder="กรอถ่ายบัตรกชื่อ-นามสกุล"></div>
           <div class="form-group"><label>เบอร์โทรศัพท์ <span class="req">*</span></label><input type="tel" id="f-phone" placeholder="08x-xxx-xxxx"></div>
-          <div class="form-group"><label>เลขบัตรประชาชน / Passport</label><input type="text" id="f-idcard" placeholder="กรอกเลขบัตร (ถ้ามี)"></div>
+          <div class="form-group"><label>เลขบัตรประชาชน / Passport</label><input type="text" id="f-idcard" placeholder="กรอถ่ายบัตรกเลขบัตร (ถ้ามี)"></div>
           <div class="form-group"><label>สัญชาติ</label>
             <select id="f-nationality"><option value="ไทย">ไทย</option><option value="เมียนมา">เมียนมา</option><option value="ลาว">ลาว</option><option value="กัมพูชา">กัมพูชา</option><option value="อื่นๆ">อื่นๆ</option></select>
           </div>
@@ -130,7 +130,7 @@ textarea{resize:vertical;min-height:72px}
         <div class="card-title"><i class="ti ti-id-badge"></i> เลือกประเภทบริการ</div>
         <div class="service-grid">
           <button class="service-btn selected" onclick="selectService(this,'สมาร์ทการ์ด')" id="svc-smartcard">
-            <span class="svc-name">&#x1FAA6; สมาร์ทการ์ด</span><span class="svc-desc">บัตรประชาชนอิเล็กทรอนิกส์</span>
+            <span class="svc-name">&#x1FAA6; สมาร์ทการ์ด</span><span class="svc-desc">บัตรประชาชนอิเล็กทรอถ่ายบัตรนิกส์</span>
           </button>
           <button class="service-btn" onclick="selectService(this,'บัตรชมพู')" id="svc-pink">
             <span class="svc-name">&#x1F339; บัตรชมพูต่างด้าว</span><span class="svc-desc">บัตรแรงงานต่างด้าว</span>
@@ -177,7 +177,7 @@ textarea{resize:vertical;min-height:72px}
           <div class="section-title"><i class="ti ti-list"></i> รายการคิวทั้งหมด</div>
           <div style="display:flex;gap:8px;align-items:center">
             <select id="filter-status" onchange="loadQueue()" style="font-size:13px;padding:6px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:var(--font)">
-              <option value="">ทุกสถานะ</option><option value="รอ">รอ</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option>
+              <option value="">ทุกสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option>
             </select>
             <button class="btn btn-secondary btn-sm" onclick="loadQueue()"><i class="ti ti-refresh"></i> รีเฟรช</button>
           </div>
@@ -189,7 +189,7 @@ textarea{resize:vertical;min-height:72px}
     <div id="tab-dashboard" style="display:none">
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-icon">&#x1F4C5;</div><div class="stat-label">คิววันนี้</div><div class="stat-value" id="stat-today">—</div><div class="stat-sub">รายการ</div></div>
-        <div class="stat-card"><div class="stat-icon">&#x23F3;</div><div class="stat-label">รอดำเนินการ</div><div class="stat-value" id="stat-waiting">—</div><div class="stat-sub">คิว</div></div>
+        <div class="stat-card"><div class="stat-icon">&#x23F3;</div><div class="stat-label">รอถ่ายบัตรดำเนินการ</div><div class="stat-value" id="stat-waiting">—</div><div class="stat-sub">คิว</div></div>
         <div class="stat-card"><div class="stat-icon">&#x2705;</div><div class="stat-label">เสร็จแล้ววันนี้</div><div class="stat-value" id="stat-done">—</div><div class="stat-sub">คิว</div></div>
         <div class="stat-card"><div class="stat-icon">&#x1F4CA;</div><div class="stat-label">เดือนนี้</div><div class="stat-value" id="stat-month">—</div><div class="stat-sub">รายการ</div></div>
       </div>
@@ -255,7 +255,7 @@ async function submitBooking(){
   const name=document.getElementById('f-name').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
   const date=document.getElementById('f-date').value;
-  if(!name||!phone||!date){showToast('กรุณากรอกข้อมูลที่จำเป็น (*)',true);return;}
+  if(!name||!phone||!date){showToast('กรุณากรอถ่ายบัตรกข้อมูลที่จำเป็น (*)',true);return;}
   if(!gsUrl){showToast('กรุณาตั้งค่า URL ก่อนในหน้าตั้งค่า',true);return;}
   const payload={action:'addQueue',name,phone,idcard:document.getElementById('f-idcard').value,nationality:document.getElementById('f-nationality').value,service:selectedService,date,time:selectedTime,staff:document.getElementById('f-staff').value,note:document.getElementById('f-note').value};
   try{
@@ -285,11 +285,11 @@ async function loadQueue(){
 function renderQueue(rows){
   const container=document.getElementById('queue-container');
   if(!rows.length){container.innerHTML='<div class="empty"><i class="ti ti-inbox"></i>ไม่มีข้อมูลคิว</div>';return;}
-  const sm={'รอ':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
+  const sm={'รอถ่ายบัตร':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
   let html='<div style="overflow-x:auto"><table class="queue-table"><thead><tr><th>รหัส</th><th>ชื่อ</th><th>บริการ</th><th>วันที่นัด</th><th>เวลา</th><th>เจ้าหน้าที่</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody>';
   rows.forEach(r=>{
-    const st=r['สถานะ']||'รอ';const id=r['ID']||'';
-    html+=`<tr><td><span class="badge">${id}</span></td><td><strong>${r['ชื่อ-นามสกุล']||''}</strong><br><small style="color:var(--gray-500)">${r['เบอร์โทร']||''}</small></td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td>${r['เวลา']||''}</td><td>${r['เจ้าหน้าที่']||'—'}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td><td><select onchange="changeStatus('${id}',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--gray-200);border-radius:4px;font-family:var(--font)"><option value="">เปลี่ยนสถานะ</option><option value="รอ">รอ</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option></select></td></tr>`;
+    const st=r['สถานะ']||'รอถ่ายบัตร';const id=r['ID']||'';
+    html+=`<tr><td><span class="badge">${id}</span></td><td><strong>${r['ชื่อ-นามสกุล']||''}</strong><br><small style="color:var(--gray-500)">${r['เบอร์โทร']||''}</small></td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td>${r['เวลา']||''}</td><td>${r['เจ้าหน้าที่']||'—'}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td><td><select onchange="changeStatus('${id}',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--gray-200);border-radius:4px;font-family:var(--font)"><option value="">เปลี่ยนสถานะ</option><option value="รอถ่ายบัตร">รอถ่ายบัตร</option><option value="กำลังให้บริการ">กำลังให้บริการ</option><option value="เสร็จแล้ว">เสร็จแล้ว</option><option value="ยกเลิก">ยกเลิก</option></select></td></tr>`;
   });
   container.innerHTML=html+'</tbody></table></div>';
 }
@@ -316,9 +316,9 @@ function renderDashboard(d){
   const rq=document.getElementById('recent-queue');
   const recent=d.recentQueues||[];
   if(!recent.length){rq.innerHTML='<div class="empty"><i class="ti ti-inbox"></i>ไม่มีข้อมูล</div>';return;}
-  const sm={'รอ':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
+  const sm={'รอถ่ายบัตร':'waiting','กำลังให้บริการ':'serving','เสร็จแล้ว':'done','ยกเลิก':'cancelled'};
   rq.innerHTML='<table class="queue-table"><thead><tr><th>รหัส</th><th>ชื่อ</th><th>บริการ</th><th>วันที่นัด</th><th>สถานะ</th></tr></thead><tbody>'+
-    recent.map(r=>{const st=r['สถานะ']||'รอ';return`<tr><td><span class="badge">${r['ID']||''}</span></td><td>${r['ชื่อ-นามสกุล']||''}</td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td></tr>`;}).join('')+'</tbody></table>';
+    recent.map(r=>{const st=r['สถานะ']||'รอถ่ายบัตร';return`<tr><td><span class="badge">${r['ID']||''}</span></td><td>${r['ชื่อ-นามสกุล']||''}</td><td>${r['บริการ']||''}</td><td>${(r['วันที่นัด']||'').substring(0,10)}</td><td><span class="pill ${sm[st]||'waiting'}"><span class="dot"></span>${st}</span></td></tr>`;}).join('')+'</tbody></table>';
 }
 function saveConfig(){
   const url=document.getElementById('gs-url').value.trim();
